@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./src/output.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body class="flex justify-center items-center h-screen bg-gray-100">
+    <div class="border-4 border-sky-500 bg-pink-300  p-8 rounded-lg shadow-md">
+        <h1 class="font-bold text-center text-2xl mb-4">Stone Paper Scissors</h1>
+        <div class="flex space-x-4">
+            <button class="transition transform ease-in-out delay-150 bg-red-500 hover:-translate-y-1 hover:scale-110 hover:bg-red-300 duration-300 px-4 py-2 rounded" onclick="fn(0)">Stone</button>
+            <button class="transition transform ease-in-out delay-150 bg-red-500 hover:-translate-y-1 hover:scale-110 hover:bg-red-300 duration-300 px-4 py-2 rounded" onclick="fn(1)">Paper</button>
+            <button class="transition transform ease-in-out delay-150 bg-red-500 hover:-translate-y-1 hover:scale-110 hover:bg-red-300 duration-300 px-4 py-2 rounded" onclick="fn(2)">Scissor</button>
+        </div>
+        <p class="countt"></p>
+        <p id="demo" class="mt-4 text-center"></p>
+        <p id="userChoice" class="mt-4 text-center"></p>
+        <p id="computerChoice" class="mt-4 text-center"></p>
+        <p id="winner" class="mt-4 text-center font-bold text-xl"></p>
+        <button id="restartBtn" class="hidden mx-auto mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="restartGame()">Restart Game</button>
+
+    </div>
+    </div> 
+
+</body>
+<script>
+    var count = 0;
+    var userWins = 0;
+    var computerWins = 0;
+
+    function fn(choice) {
+        let computerChoice = Math.trunc(Math.random() * 3);
+        count++;
+
+        document.querySelector(".countt").innerHTML = "Count: " + count;
+        document.getElementById("userChoice").innerHTML = "Your Choice: " + getChoiceName(choice);
+        document.getElementById("computerChoice").innerHTML = "Computer's Choice: " + getChoiceName(computerChoice);
+
+        if (computerChoice == choice) {
+            document.getElementById("demo").innerHTML = 'You Loose';
+        } else {
+            document.getElementById("demo").innerHTML = 'You Win';
+            userWins++;
+        }
+
+        if (count === 3) {
+            declareWinner();
+            document.getElementById("restartBtn").classList.remove("hidden");
+        }
+    }
+
+    function getChoiceName(choice) {
+        switch (choice) {
+            case 0:
+                return 'Stone';
+            case 1:
+                return 'Paper';
+            case 2:
+                return 'Scissor';
+            default:
+                return 'Invalid Choice';
+        }
+    }
+
+    function declareWinner() {
+        if (userWins > computerWins) {
+            document.getElementById("winner").innerHTML = 'You are the overall winner!';
+        } else if (userWins < computerWins) {
+            document.getElementById("winner").innerHTML = 'Computer is the overall winner!';
+        } else {
+            document.getElementById("winner").innerHTML = 'It\'s a tie!';
+        }
+    }
+
+    function restartGame() {
+        count = 0;
+        userWins = 0;
+        computerWins = 0;
+        document.querySelector(".countt").innerHTML = "Count: " + count;
+        document.getElementById("winner").innerHTML = '';
+        document.getElementById("demo").innerHTML = '';
+        document.getElementById("userChoice").innerHTML = '';
+        document.getElementById("computerChoice").innerHTML = '';
+        document.getElementById("restartBtn").classList.add("hidden");
+    }
+</script>
+</html>
